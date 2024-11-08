@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <header>
+        <h1>Dashboard</h1>
+        <h2>Welcome Pratham</h2>
+    </header>
+    <main>
+        <button onclick="fetchdata()">Fetch Top 10 Github users</button>
+        <div id="top"></div>
+    </main>
+    <footer>
+        <button id="logout">Logout</button>
+    </footer>
+</body>
+<script>
+    async function fetchdata() {
+    try {
+        let response = await fetch("https://api.github.com/users?page=10")
+        let data = await response.json();
+        data.forEach(element => {
+            let h3 = document.createElement('h3');
+            h3.textContent = element.login;
+            let top = document.getElementById('top');
+            top.appendChild(h3);
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+fetchdata();
+</script>
+</html>
